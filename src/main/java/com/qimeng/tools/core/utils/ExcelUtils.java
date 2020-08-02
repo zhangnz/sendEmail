@@ -283,4 +283,20 @@ public class ExcelUtils {
         }
         return rowList;
     }
+
+    public List<String> readBySheetIndex(int index) {
+        Sheet sheet = workbook.getSheetAt(index);
+        List<String> rowList = new ArrayList<>();
+
+        int start = 0;
+        int end = sheet.getLastRowNum();
+
+        for (int i = start; i <= end; i++) {
+            Row row = sheet.getRow(i);
+            if(row.getCell(0)!=null){
+                rowList.add(getCellValue(row.getCell(0)));
+            }
+        }
+        return rowList;
+    }
 }

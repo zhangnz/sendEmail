@@ -53,14 +53,16 @@ public class EmailServiceImpl implements EmailService {
         //helper.setCc("");
 
         //邮件内容
-        String line = "<br />";
+        String line = "<br/>";
+        String head = "&nbsp;&nbsp;&nbsp;&nbsp;";
+        //String head = "    ";
         StringBuffer text = new StringBuffer();
         text.append("你好：").append(line);
-        text.append("\t首先，感谢贵风投公司看到我公司的邮件。").append(line);
-        text.append("\t我公司坐落于首都北京朝阳区，成立于2020年，专注开发一款出海类精品休闲三消PRG（角色扮演）原力觉醒 手机游戏，游戏研发团队研发技术经验丰富。现在正寻求融资，资金用于游戏的研发，希望得到贵公司的垂青，仔细认真评估一下我们的商业计划书，期待贵公司的回复，谢谢！").append(line);
-        text.append(line);
-        text.append("\t联系人：王经理").append(line);
-        text.append("\t电话：13693246662").append(line);
+        text.append(head).append("首先，感谢贵风投公司看到我公司的邮件。").append(line);
+        text.append(head).append("我公司坐落于首都北京朝阳区，成立于2020年，专注开发一款出海类精品休闲三消PRG（角色扮演）原力觉醒 手机游戏，游戏研发团队研发技术经验丰富。现在正寻求融资，资金用于游戏的研发，希望得到贵公司的垂青，仔细认真评估一下我们的商业计划书，期待贵公司的回复，谢谢！").append(line);
+        text.append(head).append(line);
+        text.append(head).append("联系人：王经理").append(line);
+        text.append(head).append("电话：13693246662").append(line);
         helper.setText(text.toString(),true);
 
         //附件内容
@@ -69,7 +71,7 @@ public class EmailServiceImpl implements EmailService {
 
         mailSender.send(message);
 
-        logger.info("{}邮件发送成功",receiver);
+        logger.info("{} 邮件发送成功",receiver);
 
     }
 
@@ -77,15 +79,9 @@ public class EmailServiceImpl implements EmailService {
     public List<String> findReceivers() throws IOException {
 
         ExcelUtils excelUtils = new ExcelUtils(new File(receiverFile));
-        String date = LocalDate.now().toString().replace("-","");
-        List<List<String>> list = excelUtils.readBySheetName(date);
+        //String date = LocalDate.now().toString().replace("-","");
+        List<String> list = excelUtils.readBySheetIndex(0);
 
-        List receivers = new ArrayList();
-        list.stream().forEach(row -> {
-            if(row.size()>0){
-                receivers.add(row.get(0));
-            }
-        });
-        return receivers;
+        return list;
     }
 }
