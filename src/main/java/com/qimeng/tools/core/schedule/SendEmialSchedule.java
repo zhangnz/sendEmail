@@ -36,13 +36,11 @@ public class SendEmialSchedule {
             return;
         }
         list.forEach(reciever -> {
-            new Thread(() ->{
-                try {
-                    emailService.sendEmail(reciever);
-                } catch (MessagingException e) {
-                    logger.error("**************[定时任务]发送给[{}]的邮件失败:{}",reciever,e.getMessage());
-                }
-            }).start();
+            try {
+                emailService.sendEmail(reciever);
+            } catch (MessagingException e) {
+                logger.error("**************[定时任务]发送给[{}]的邮件失败:{}",reciever,e.getMessage());
+            }
         });
 
     }
