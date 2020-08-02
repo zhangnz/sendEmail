@@ -1,0 +1,28 @@
+
+server:
+  servlet:
+    context-path: /email
+  port: 8080
+
+#发件人email
+spring:
+  mail:
+    attach-file:  D:\\email\\商业计划书.pdf
+    receiver-file:  D:\\email\\receiver.xls
+    host: smtp.163.com
+    port: 25
+    username: qmcy_admin@163.com
+    # 填写授权码
+    password: ***********
+    default-encoding: UTF-8
+    properties:
+#      mail.smtp.ssl.enable: true
+      mail.smtp.timeout:  25000
+      mail.smtp.auth: false
+
+#logger
+logging:
+  file: D:\\email\\email.log
+  level:
+    root: INFO
+
